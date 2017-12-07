@@ -1,24 +1,13 @@
-# README
+# タスク管理システム　-Ruby教育カリキュラム-
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## バージョン
 
-Things you may want to cover:
+* Ruby 2.3.3p222
+* Rails 5.0.1
+* PostgresSQL 10.1
 
-* Ruby version
+## DB
 
-* System dependencies
+スキーマ名：task_management_production
+※各種テーブル情報はテーブル定義を参照
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
