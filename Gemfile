@@ -8,8 +8,6 @@ end
 # ruby '2.3.3p222'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -49,3 +47,10 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'pg'
+
+gem 'coffee-script-source', '1.8.0'
+
+gem 'authlogic', '3.6.0'              # 認証機能を提供するライブラリ
+gem 'composite_primary_keys', '9.0.7' # 複合主キーを定義できるようにするためのライブラリ
+gem 'materialize-sass', '0.98.2'      # マテリアルデザイン用のJS/CSSを提供するライブラリ
+gem 'pundit', '1.1.0'                 # 認可機能を提供するライブラリ

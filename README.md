@@ -8,6 +8,6 @@
 
 ## DB
 
-スキーマ名：task_management_production
+スキーマ名：task_management_development
 ※各種テーブル情報はテーブル定義を参照
 

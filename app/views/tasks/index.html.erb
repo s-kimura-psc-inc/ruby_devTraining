@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="section">
+    <h2>タスク一覧</h2>
+  </div>
+
+  <div id="flash-error">
+    <% flash.each do |name, message| %>
+      <p class="card <%= name %>"><font color="red"><%= message %></font></p>
+    <% end %>
+  </div>
+
+<div class="row fixed-list-header">
+  <a href="<%= new_task_path %>" class="waves-effect waves-light btn right edit" tabindex="-1">新規登録</a>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th class="grid-th-width1">ラベル</th>
+    <th class="grid-th-width2">タスク名</th>
+    <th class="grid-th-width3">タスク</th>
+    <th class="grid-th-width4">期限</th>
+    <th class="grid-th-width5">ｽﾃｰﾀｽ</th>
+    <th class="grid-th-width6">優先度</th>
+    <th class="grid-th-width7">編集</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |task| %>
+      <tr style="height:48px;">
+        <td style="vertical-align: middle"><%= task["label_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["task_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["task"] %></td>
+        <td style="vertical-align: middle"><%= dt_format(task["deadline"]) %></td>
+        <td style="vertical-align: middle"><%= task["status_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["priority_nm"] %></td>
+        <td class="action">
+          <%= link_to '詳細', task_path(task["id"]) %>
+          <%= link_to '更新', edit_task_path(task["id"]) %>
+          <%= link_to '削除', task_path(task["id"]), method:"delete", 'data-confirm': '削除します。よろしいですか？' %>
+        </td>
+      </tr>
+  <% end %>
+  <tbody>
+</table>
+</div>

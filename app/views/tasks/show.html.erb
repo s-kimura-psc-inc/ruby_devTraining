@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="section">
+    <h2>タスク詳細</h2>
+  </div>
+
+  <div class="row">
+      <div class="card-panel">
+      <% @tasks.each do |task| %>
+        <table>
+          <tr>
+            <th>ラベル</th>
+            <td><%= task["label_nm"] %></td>
+            </td>
+          </tr>
+          <tr>
+            <th>タスク名</th>
+            <td><%= task["task_nm"] %></td>
+          </tr>
+          <tr>
+            <th>タスク</th>
+            <td><%= task["task"] %></td>
+          </tr>
+          <tr>
+            <th>期限</th>
+            <td><%= task["deadline"] %></td>
+          </tr>
+          <tr>
+            <th>優先度</th>
+            <td><%= task["priority_nm"] %></td>
+          </tr>
+          <tr>
+            <th>登録ユーザ</th>
+            <td><%= task["created_by"] %></td>
+          </tr>
+        </table>
+
+        <div class="footer-button">
+          <%= link_to "戻る", tasks_path, class:"btn btn-default", style:"width:150px;display:block;margin:auto" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+</div>
