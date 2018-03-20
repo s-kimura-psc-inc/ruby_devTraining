@@ -5,7 +5,7 @@
 
   <div id="flash-error">
     <% flash.each do |name, message| %>
-      <p class="card <%= name %>"><font color="red"><%= message %></font></p>
+      <p class="card <%= name %>"><%= message %></p>
     <% end %>
   </div>
 
@@ -13,15 +13,27 @@
   <a href="<%= new_task_path %>" class="waves-effect waves-light btn right edit" tabindex="-1">新規登録</a>
 </div>
 
+<%= form_tag tasks_path, :method => 'get' do %>
+  <p>
+    <font size="3">タスク名</font><br>
+    <%= text_field_tag :task_nm, params[:task_nm] %><br>
+    <font size="3">ステータス</font><br>
+    <%= select_tag :status_cd, options_for_select(@status_select_options), :selected => params[:status_cd], :include_blank => true %><br>
+    <br>
+    <%= submit_tag "検索", :name => nil %>
+  </p>
+<% end %>
+
+<%= paginate @tasks %>
 <table class="table table-bordered">
   <thead>
   <tr>
     <th class="grid-th-width1">ラベル</th>
     <th class="grid-th-width2">タスク名</th>
     <th class="grid-th-width3">タスク</th>
-    <th class="grid-th-width4">期限</th>
+    <th class="grid-th-width4"><%= sortable "期限" %></th>
     <th class="grid-th-width5">ｽﾃｰﾀｽ</th>
-    <th class="grid-th-width6">優先度</th>
+    <th class="grid-th-width6"><%= sortable "優先度" %></th>
     <th class="grid-th-width7">編集</th>
   </tr>
   </thead>
@@ -31,7 +43,7 @@
         <td style="vertical-align: middle"><%= task["label_nm"] %></td>
         <td style="vertical-align: middle"><%= task["task_nm"] %></td>
         <td style="vertical-align: middle"><%= task["task"] %></td>
-        <td style="vertical-align: middle"><%= dt_format(task["deadline"]) %></td>
+        <td style="vertical-align: middle"><%= task["deadline"] %></td>
         <td style="vertical-align: middle"><%= task["status_nm"] %></td>
         <td style="vertical-align: middle"><%= task["priority_nm"] %></td>
         <td class="action">
@@ -43,4 +55,5 @@
   <% end %>
   <tbody>
 </table>
+<%= paginate @tasks %>
 </div>

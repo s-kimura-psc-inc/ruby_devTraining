@@ -1,0 +1,17 @@
+{
+  "RSpec": {
+    "coverage": {
+      "C:/ruby_devTraining/spec/support/factory_firl.rb": [
+        1,
+        1,
+        null
+      ],
+      "C:/ruby_devTraining/spec/support/mongoid.rb": [
+        1,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1520904641
+  }
+}

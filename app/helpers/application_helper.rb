@@ -6,11 +6,6 @@ module ApplicationHelper
     {}
   end
 
-#  def validation_error_title(error_count)
-#    return "#{error_count} 件のエラーが発生しました" if I18n.locale == :ja
-#    "#{error_count} #{error_count < 2 ? 'error' : 'errors'} occurred"
-#  end
-
   private
 
   def only_actions?(actions)

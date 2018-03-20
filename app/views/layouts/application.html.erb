@@ -8,18 +8,19 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <body>
     <header>
       <nav class="nav-extended">
         <div class="nav-wrapper">
-          <%= link_to image_tag('logo.png'), root_path, id: 'logo-container' %>
-          <%= link_to 'タスク管理システム - Ruby教育カリキュラム -', root_path, class: 'system-title' %>
+          <h2><%= link_to 'タスク管理システム - Ruby教育カリキュラム -', root_path, class: 'system-title' %></h2>
         </div>
 
         <div class="nav-content">
           <ul class="tabs tabs-transparent">
             <li class="tab">
-              <%= link_to 'タスク管理', root_path, { target: '_self' }.merge(menu_item_class('tasks'))  %>&nbsp;&nbsp;
-              <%= link_to 'ユーザ管理', users_path, { target: '_self' }.merge(menu_item_class('users', except: ['edit', 'update'])) %>
+              <%= link_to root_path, id: 'logo-container' %>
+              <li class="tab"><%= link_to 'タスク管理', root_path, { target: '_self' }.merge(menu_item_class('tasks'))  %></li>
+              <li class="tab"><%= link_to 'ユーザ管理', users_path, { target: '_self' }.merge(menu_item_class('users', except: ['edit', 'update'])) %></li>
             </li>
           </ul>
         </div>
@@ -29,6 +30,7 @@
     <main>
 
       <%= yield %>
+
     </main>
 
     <footer class="page-footer">

@@ -33,14 +33,26 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :test do
+  gem 'database_cleaner', '~> 1.3.0'       # テスト実行後にDBをクリア
+  gem 'capybara', '~> 2.4.3'               # ブラウザでの操作をシミュレートしてテストができる
+  gem 'simplecov', :require=>false         # テストカバレッジ(テストカバー率)
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'                        # Rails用機能を追加するRSpecラッパー
+  gem 'factory_girl_rails', '~> 4.4.1'     # テストデータの生成
+  gem 'spring-commands-rspec', '~> 1.0.2'  # RspecなどでRailsをプリロードする
+  gem 'shoulda-matchers'                   # RSpecで使える便利なマッチャー集(ActiveRecord)
+  # gem 'mongoid-rspec'                      # RSpecで使える便利なマッチャー集(Mongoid)
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  gem 'guard-rspec'                        # ファイルが変更されたらRsepcを自動実行
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -50,7 +62,20 @@ gem 'pg'
 
 gem 'coffee-script-source', '1.8.0'
 
-gem 'authlogic', '3.6.0'              # 認証機能を提供するライブラリ
-gem 'composite_primary_keys', '9.0.7' # 複合主キーを定義できるようにするためのライブラリ
-gem 'materialize-sass', '0.98.2'      # マテリアルデザイン用のJS/CSSを提供するライブラリ
-gem 'pundit', '1.1.0'                 # 認可機能を提供するライブラリ
+gem 'authlogic', '3.6.0'                   # 認証機能を提供するライブラリ
+gem 'composite_primary_keys', '9.0.7'      # 複合主キーを定義できるようにするためのライブラリ
+gem 'materialize-sass', '0.98.2'           # マテリアルデザイン用のJS/CSSを提供するライブラリ
+gem 'pundit', '1.1.0'                      # 認可機能を提供するライブラリ
+
+gem 'i18n_generators'
+
+# Bootstrap
+gem 'bootstrap-sass'
+
+# Bootstrap の datetimepicker を適用
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
+
+#kaminariを適用
+gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0.1'

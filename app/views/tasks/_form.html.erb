@@ -1,4 +1,25 @@
+<script type="text/javascript">
+  $(function () {
+      $('#datetimepickerDeadline').datetimepicker({
+          locale: 'ja',
+          viewMode: 'days',
+          format: 'YYYY/MM/DD'
+      });
+  });
+</script>
+
 <%= form_for @task do |f| %>
+
+  <% if @task.errors.any? %>
+    <div id="validation-error-title"><font color='red'><%= @task.errors.count %> 件のエラーが発生しました</font></div>
+    <div id="validation-error-content">
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><font color='red'><%= message %></font></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="row">
     <div class="card-panel">
@@ -12,25 +33,33 @@
           <th><%= f.label :task_nm, 'タスク名' %></th>
           <td>
             <%= f.text_field :task_nm, 'data-length': 20, maxlength: 20 %>
-            <span class="caution">20文字以下を入力</span>
+            <br><span class="caution">20文字以下を入力</span>
           </td>
         </tr>
         <tr>
           <th><%= f.label :task, 'タスク' %></th>
           <td>
             <%= f.text_field :task, 'data-length': 100, maxlength: 100 %>
-            <span class="caution">100文字以下を入力</span>
+            <br><span class="caution">100文字以下を入力</span>
           </td>
         </tr>
         <tr>
           <th><%= f.label :deadline, '期限' %></th>
           <td>
-            <%= f.text_field :deadline, 'data-length': 20, maxlength: 20 %>
+              <div class='input-group date' id='datetimepickerDeadline'>
+                <%= f.text_field :deadline, :class => 'form-control' %>
+                <span class="input-group-addon"></span>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <th><%= f.label :status_cd, 'ステータス' %></th>
+          <td><%= f.select :status_cd, options_for_select(@status_select_options), :include_blank => true %></td>
           </td>
         </tr>
         <tr>
           <th><%= f.label :priority_cd, '優先度' %></th>
-          <td><%= select_tag 'priority_cd', options_for_select(@priority_select_options), :include_blank => true %></td>
+          <td><%= f.select :priority_cd, options_for_select(@priority_select_options), :include_blank => true %></td>
           </td>
         </tr>
       </table>

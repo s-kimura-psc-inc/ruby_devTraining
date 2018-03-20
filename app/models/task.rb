@@ -1,11 +1,14 @@
 class Task < ApplicationRecord
   self.table_name = :tbl_task_infs
   
+  validates :task_nm, presence: true, length: { maximum: 20 }
+  validates :task, length: { maximum: 100 }
+  
   # タスク一覧情報を取得する
   #
   # @param
   # @return [ActiveRecord::Result] 取得したデータ
-  def self.task_records(params)
+  def self.task_records(params, sort)
       sql = <<~SQL
       SELECT
         tti.id,
@@ -27,12 +30,16 @@ class Task < ApplicationRecord
           LEFT OUTER JOIN #{Priority.table_name} mp ON (
             tti.priority_cd = mp.priority_cd
           )
-        #{where_sql(params[:task_nm], params[:task], params[:label_cd])}
+        #{where_sql(params[:task_nm], params[:status_cd])}
       ORDER BY
-        tti.updated_at DESC
+        tti.#{sort}
     SQL
-
-    sql = ApplicationRecord.send(:sanitize_sql_array, [sql.gsub(/\s+/, ' ')])
+    
+    if params[:task_nm].present?
+      sql = ApplicationRecord.send(:sanitize_sql_array, [sql.gsub(/\s+/, ' '), params[:task_nm] + "%"])
+    else
+      sql = ApplicationRecord.send(:sanitize_sql_array, [sql.gsub(/\s+/, ' ')])
+    end
     ApplicationRecord.connection.select_all(sql)
   end
   
@@ -74,34 +81,21 @@ class Task < ApplicationRecord
   # @param task [String] タスク
   # @param label_cd [int] ラベルコード
   # @return [String] WHERE句の文字列
-  def self.where_sql(task_nm, task, label_cd)
-    where_bool = false
+  def self.where_sql(task_nm, status_cd)
     where_conditions = ''
     
     if task_nm.present?
-      where_conditions = " WHERE tti.task_nm like '" + task_nm + "%'"
-      where_bool = true
+      where_conditions = " WHERE tti.task_nm like ?"
     end
     
-    if task.present?
-      if where_bool == "false"
-        where_conditions = " WHERE tti.task like '%" + task + "%'"
-        where_bool = true
+    if status_cd.present?
+      if where_conditions == ''
+        where_conditions = " WHERE tti.status_cd = " + status_cd
       else
-        where_conditions += " AND tti.task like '%" + task + "%'"
-      end
-    end
-
-    if label_cd.present?
-      if where_bool == "false"
-        where_conditions = " WHERE ml.label_cd = " + label_cd
-        where_bool = true
-      else
-        where_conditions += " AND ml.label_cd = " + label_cd
+        where_conditions += " AND tti.status_cd = " + status_cd
       end
     end
     where_conditions
   end
   private_class_method :where_sql
-  
 end
