@@ -1,16 +1,28 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
+@import "materialize/components/color";
+$primary-color: color("blue", "darken-2") !default;
+@import "materialize";
 
 select {
   border: 1px solid #9e9e9e;
+}
+
+select:focus {
+  outline: 1px solid map-get($blue, base);
+}
+
+nav {
+  height: 50px;
+  line-height: 50px;
 }
 
 header {
   background-color: #ffff66;
   top: 0;
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
 }
 
 main {
@@ -35,5 +47,192 @@ footer.page-footer .footer-copyright {
   background-color: transparent;
   margin: 0 auto;
   padding: 0 50px;
-  width: 900px;
+  width: 80%;
+}
+
+.notice {
+  @extend .green, .lighten-5;
+  @extend .green-text, .text-darken-3;
+  border: 1px solid map-get($green, lighten-3);
+  padding: 10px 0 10px 20px;
+}
+
+.alert {
+  @extend .red, .lighten-4;
+  @extend .red-text;
+  border: 1px solid map-get($red, lighten-3);
+  padding: 10px 0 10px 20px;
+}
+
+.nav-wrapper {
+  font-size: 16px;
+  min-height: 50px !important;
+}
+
+.nav-content::before {
+  background-image: linear-gradient(to right, transparent, map-get($blue, lighten-3) 10%, map-get($blue, lighten-3) 90%, transparent);
+  content: '';
+  height: 1px;
+  margin: 0 auto;
+  position: absolute;
+  width: 800px;
+}
+
+.nav-wrapper,
+.nav-content {
+  margin: 0 auto;
+  padding: 0 50px;
+  width: 1000px;
+}
+
+#login-user-info {
+  font-size: 12px;
+}
+
+#login-user-info i.material-icons {
+  font-size: 15px;
+  height: inherit;
+  line-height: inherit;
+  margin-right: 0;
+  padding-right: 5px;
+}
+
+#logout-link {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color .28s ease;
+}
+
+#logout-link:hover {
+  color: #fff;
+}
+
+.tabs .tab {
+  text-transform: none;
+  --webkit-flex-grow: inherit;
+  flex-grow: inherit;
+}
+
+.tabs .tab a {
+  font-size: 13px;
+  padding: 0 15px;
+}
+
+#validation-errors {
+  @extend .red, .lighten-4;
+  @extend .red-text;
+  border: 1px solid map-get($red, lighten-3);
+}
+
+#validation-error-title {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 0 10px 20px;
+}
+
+input:focus {
+  border-bottom: 1px solid map-get($blue, base) !important;
+  box-shadow: 0 1px 0 0 map-get($blue, base) !important;
+}
+
+.fixed-form select {
+  width: 450px;
+}
+
+.fixed-form select.status {
+  width: 100px;
+}
+
+.fixed-form table {
+  width: 100%;
+}
+
+.fixed-form table.search {
+  width: 450px;
+}
+
+.fixed-form th {
+  background-color: #ffd78c;
+  text-align: center;
+}
+
+.fixed-form td.label-nm {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 100px;
+}
+
+.fixed-form td.task_nm {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 350px;
+}
+
+.fixed-form td.status {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 100px;
+}
+
+.fixed-form th label {
+  color: inherit;
+  font-size: 14px;
+}
+
+.show-form table {
+  width: 100%;
+}
+
+.show-form td {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 150px;
+}
+
+.show-form td.val {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 500px;
+}
+
+.show-form th.label-nm {
+  color: inherit;
+  font-size: 14px;
+  width: 150px;
+}
+
+.input-form table {
+  width: 100%;
+}
+
+.input-form td {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 150px;
+}
+
+.input-form td.val {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 500px;
+}
+
+.input-form td.deadline {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 100px;
+}
+
+.input-form th.label-nm {
+  color: inherit;
+  font-size: 14px;
+  width: 150px;
+}
+
+.card-panel {
+  border: 1px solid map-get($blue, base);
+  margin-top: 0;
+}
+
+#delete-link {
+  @extend .red-text;
 }

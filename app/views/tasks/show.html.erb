@@ -1,36 +1,39 @@
 <div class="row">
   <div class="section">
-    <h2>タスク詳細</h2>
+    <h4>タスク詳細</h4>
   </div>
 
-  <div class="row">
+  <div class="show-form">
       <div class="card-panel">
       <% @tasks.each do |task| %>
         <table>
           <tr>
-            <th>ラベル</th>
-            <td><%= task["label_nm"] %></td>
-            </td>
+            <th class="label-nm">ラベル</th>
+            <td class="val"><%= task["label_nm"] %></td>
           </tr>
           <tr>
-            <th>タスク名</th>
-            <td><%= task["task_nm"] %></td>
+            <th class="label-nm">タスク名</th>
+            <td class="val"><%= task["task_nm"] %></td>
           </tr>
           <tr>
-            <th>タスク</th>
-            <td><%= task["task"] %></td>
+            <th class="label-nm">タスク</th>
+            <td class="val"><%= task["task"] %></td>
           </tr>
           <tr>
-            <th>期限</th>
-            <td><%= task["deadline"] %></td>
+            <th class="label-nm">期限</th>
+            <td class="val"><%= task["deadline"] %></td>
           </tr>
           <tr>
-            <th>優先度</th>
-            <td><%= task["priority_nm"] %></td>
+            <th class="label-nm">ステータス</th>
+            <td class="val"><%= task["status_nm"] %></td>
           </tr>
           <tr>
-            <th>登録ユーザ</th>
-            <td><%= task["created_by"] %></td>
+            <th class="label-nm">優先度</th>
+            <td class="val"><%= task["priority_nm"] %></td>
+          </tr>
+          <tr>
+            <th class="label-nm">登録ユーザ</th>
+            <td class="val"><%= task["personnel"] %></td>
           </tr>
         </table>
 

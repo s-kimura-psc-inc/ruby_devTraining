@@ -12,15 +12,19 @@
     <header>
       <nav class="nav-extended">
         <div class="nav-wrapper">
-          <h2><%= link_to 'タスク管理システム - Ruby教育カリキュラム -', root_path, class: 'system-title' %></h2>
+          <%= link_to 'タスク管理システム - Ruby教育カリキュラム -', root_path, class: 'system-title' %>
+          <div id="login-user-info" class="right">
+            <div class="left"><a rel="nofollow" data-method="delete" href="<%= logout_path %>" id="logout-link">ログアウト</a></div>
+          </div>
         </div>
 
         <div class="nav-content">
           <ul class="tabs tabs-transparent">
             <li class="tab">
-              <%= link_to root_path, id: 'logo-container' %>
               <li class="tab"><%= link_to 'タスク管理', root_path, { target: '_self' }.merge(menu_item_class('tasks'))  %></li>
-              <li class="tab"><%= link_to 'ユーザ管理', users_path, { target: '_self' }.merge(menu_item_class('users', except: ['edit', 'update'])) %></li>
+              <% if current_user.admin? %>
+                <li class="tab"><%= link_to 'ユーザ管理', users_path, { target: '_self' }.merge(menu_item_class('users', except: ['edit', 'update']))  %></li>
+              <% end %>
             </li>
           </ul>
         </div>

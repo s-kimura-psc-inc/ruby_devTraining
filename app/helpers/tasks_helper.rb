@@ -1,7 +1,7 @@
 module TasksHelper
   
   # ソート処理
-  def sortable(column, title = nil)    
+  def sortable(column, status_cd, task_nm, title = nil)    
     title ||= column.titleize
     
     case column
@@ -11,7 +11,7 @@ module TasksHelper
     end
     
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
-    link_to title, {:sort => column, :direction => direction}
+    link_to title, {:sort => column, :direction => direction , :status_cd => status_cd, :task_nm => task_nm}
   end
   
 end

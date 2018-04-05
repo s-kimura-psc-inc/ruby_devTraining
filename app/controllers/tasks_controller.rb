@@ -24,9 +24,17 @@ class TasksController < ApplicationController
     # -------------------------------------------------------------------------
     where_conditions = ''
     
+    if current_user.general?
+      where_conditions = "tbl_task_infs.personnel = '" + current_user.login + "'"
+    end
+    
     # ステータス検索があり、ステータスコードに数値が設定されている場合
     if params[:status_cd].present? && params[:status_cd] =~ /^[0-9]+$/
-      where_conditions = "tbl_task_infs.status_cd = " + params[:status_cd]
+      if where_conditions == ''
+        where_conditions = "tbl_task_infs.status_cd = " + params[:status_cd]
+      else
+        where_conditions = where_conditions + " and tbl_task_infs.status_cd = " + params[:status_cd]
+      end
     end
     
     # タスク名検索がある場合
@@ -37,7 +45,7 @@ class TasksController < ApplicationController
         where_conditions = where_conditions + " and tbl_task_infs.task_nm like ?", params[:task_nm] + "%"
       end
     end
-    
+        
     # 検索条件がない場合
     if where_conditions == ''
       where_conditions = "1 = 1"
@@ -67,7 +75,10 @@ class TasksController < ApplicationController
   #タスク詳細画面を表示する
   def show
     #idでTasksテーブルを取得
-    @tasks = Task.task_record(params[:id])
+    @tasks = Task.joins(LEFT_JOIN[:mst_labels]).joins(LEFT_JOIN[:mst_statuses]).joins(LEFT_JOIN[:mst_priorities])
+                 .select("tbl_task_infs.*")
+                 .select("mst_labels.label_nm").select("mst_statuses.status_nm").select("mst_priorities.priority_nm")
+                 .where("tbl_task_infs.id = " + params[:id])
   end
 
   # タスク新規登録画面を表示する
@@ -81,11 +92,11 @@ class TasksController < ApplicationController
   # タスクを登録する
   def create
     @task = Task.new(task_params)
-
-#    @tasks.created_by = current_user.login
-#    @tasks.updated_by = current_user.login
-    @task.created_by = "s.kimura"
-    @task.updated_by = "s.kimura"
+    
+    #担当者などにログインユーザIDを設定する
+    @task.personnel = current_user.login
+    @task.created_by = current_user.login
+    @task.updated_by = current_user.login
 
     if @task.save
       redirect_to tasks_path, notice: MESSAGES[:create_notice]
@@ -114,8 +125,14 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     
     @task.update(params.require(:task).permit(:task_nm, :task, :deadline, :status_cd, :priority_cd))
+   
+    #担当者などにログインユーザIDを設定する
+    @task.personnel = current_user.login
+    @task.updated_by = current_user.login
+    @task.save
     
     redirect_to tasks_path, notice: MESSAGES[:update_notice]
+    
   end
 
   # タスク一覧画面 削除ボタン押下時のアクション
@@ -134,6 +151,16 @@ class TasksController < ApplicationController
 
     #呼び出し元URLへリダイレクト
     redirect_to request.referer
+  end
+  
+  # ユーザ削除時にユーザに紐付くタスクを削除する
+  def userTask_destroy(user_id)
+    #idでTasksテーブルを取得
+    @task = Task.where("personnel = " + user_id)
+
+    #削除処理
+    @task.destroy
+    @task.save
   end
   
   #-------------------------

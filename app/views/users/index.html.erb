@@ -1,0 +1,52 @@
+<div class="section">
+  <h4>ユーザ一覧</h4>
+</div>
+
+<div id="flash-error">
+  <% flash.each do |name, message| %>
+    <p class="card <%= name %>"><%= message %></p>
+  <% end %>
+</div>
+
+<div class="fixed-list">
+  <div class="row fixed-list-header">
+    <a href="<%= new_user_path %>" class="waves-effect waves-light btn right edit" tabindex="-1">新規登録</a>
+  </div>
+
+  <div class="card-panel">
+    <table class="bordered">
+      <thead>
+        <tr>
+          <th>ユーザID</th>
+          <th>ユーザ名</th>
+          <th>権限</th>
+          <th>タスク登録件数</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user["login"] %></td>
+            <td><%= user["user_nm"] %></td>
+            <td>
+              <% case user["authority_level"] %>
+                <% when '1' %>
+                  <%= '一般ユーザ' %>
+                <% when '2' %>
+                  <%= '管理者' %>
+              <% end %>
+            </td>
+            <td><%= user["task_cnt"] %></td>
+            <td class="action">
+              <% unless current_user.id == user["id"] %>
+                <%= link_to '削除', user_path(user["id"], login: user["login"]), 'data-method': 'delete', 'data-confirm': '削除します。よろしいですか？', id: 'delete-link' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

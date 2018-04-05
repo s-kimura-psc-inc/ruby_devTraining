@@ -21,30 +21,30 @@
     </div>
   <% end %>
 
-  <div class="row">
+  <div class="input-form">
     <div class="card-panel">
       <table>
         <tr>
-          <th><%= f.label :label_cd, 'ラベル' %></th>
+          <th class="label-nm"><%= f.label :label_cd, 'ラベル' %></th>
           <td><%= select_tag 'label_cd', options_for_select(@label_select_options), :include_blank => true %></td>
           </td>
         </tr>
         <tr>
-          <th><%= f.label :task_nm, 'タスク名' %></th>
-          <td>
+          <th class="label-nm"><%= f.label :task_nm, 'タスク名' %></th>
+          <td class="val">
             <%= f.text_field :task_nm, 'data-length': 20, maxlength: 20 %>
             <br><span class="caution">20文字以下を入力</span>
           </td>
         </tr>
         <tr>
-          <th><%= f.label :task, 'タスク' %></th>
-          <td>
+          <th class="label-nm"><%= f.label :task, 'タスク' %></th>
+          <td class="val">
             <%= f.text_field :task, 'data-length': 100, maxlength: 100 %>
             <br><span class="caution">100文字以下を入力</span>
           </td>
         </tr>
         <tr>
-          <th><%= f.label :deadline, '期限' %></th>
+          <th class="label-nm"><%= f.label :deadline, '期限' %></th>
           <td>
               <div class='input-group date' id='datetimepickerDeadline'>
                 <%= f.text_field :deadline, :class => 'form-control' %>
@@ -53,13 +53,13 @@
           </td>
         </tr>
         <tr>
-          <th><%= f.label :status_cd, 'ステータス' %></th>
-          <td><%= f.select :status_cd, options_for_select(@status_select_options), :include_blank => true %></td>
+          <th class="label-nm"><%= f.label :status_cd, 'ステータス' %></th>
+          <td><%= f.select :status_cd, options_for_select(@status_select_options), {include_blank: true}, class: 'browser-default' %></td>
           </td>
         </tr>
         <tr>
-          <th><%= f.label :priority_cd, '優先度' %></th>
-          <td><%= f.select :priority_cd, options_for_select(@priority_select_options), :include_blank => true %></td>
+          <th class="label-nm"><%= f.label :priority_cd, '優先度' %></th>
+          <td><%= f.select :priority_cd, options_for_select(@priority_select_options), {include_blank: true}, class: 'browser-default' %></td>
           </td>
         </tr>
       </table>
