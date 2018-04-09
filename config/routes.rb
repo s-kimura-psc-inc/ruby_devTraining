@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   resources :tasks
 #  resources :labels, except: :show, update
   scope :admin do
-    resources :users, except: :show
+    resources :users
   end
 end
