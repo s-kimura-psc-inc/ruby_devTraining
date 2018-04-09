@@ -44,7 +44,7 @@
           </td>
         </tr>
         <tr>
-          <th class="label-nm"><%= f.label :deadline, '期限' %></th>
+          <th><%= f.label :deadline, '期限' %></th>
           <td>
               <div class='input-group date' id='datetimepickerDeadline'>
                 <%= f.text_field :deadline, :class => 'form-control' %>
@@ -54,24 +54,21 @@
         </tr>
         <tr>
           <th class="label-nm"><%= f.label :status_cd, 'ステータス' %></th>
-          <td><%= f.select :status_cd, options_for_select(@status_select_options), {include_blank: true}, class: 'browser-default' %></td>
-          </td>
+          <td><%= f.select :status_cd, options_for_select(@status_select_options, @task.status_cd) , {include_blank: true}, class: 'browser-default' %></td>
         </tr>
         <tr>
           <th class="label-nm"><%= f.label :priority_cd, '優先度' %></th>
-          <td><%= f.select :priority_cd, options_for_select(@priority_select_options), {include_blank: true}, class: 'browser-default' %></td>
-          </td>
+          <td><%= f.select :priority_cd, options_for_select(@priority_select_options, @task.priority_cd), {include_blank: true}, class: 'browser-default' %></td>
         </tr>
       </table>
 
       <div class="footer-button">
         <button type="submit" name="action" class="btn waves-effect waves-light" tabindex="-1">登録</button>
       </div>
-      
-      <div class="footer-button">
-        <%= link_to "戻る", tasks_path, class:"btn btn-default", style:"width:150px;display:block;margin:auto" %>
-      </div>
-
+    </div>
+          
+    <div class="footer-button">
+      <%= link_to "戻る", tasks_path, class:"btn btn-default", style:"width:150px;display:block;margin:auto" %>
     </div>
   </div>
 <% end %>

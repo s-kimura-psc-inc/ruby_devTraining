@@ -204,6 +204,12 @@ input:focus {
   width: 100%;
 }
 
+.input-form th.label-nm {
+  color: inherit;
+  font-size: 14px;
+  width: 150px;
+}
+
 .input-form td {
   height: 1rem;
   padding-bottom: 5px;
@@ -220,12 +226,6 @@ input:focus {
   height: 1rem;
   padding-bottom: 5px;
   width: 100px;
-}
-
-.input-form th.label-nm {
-  color: inherit;
-  font-size: 14px;
-  width: 150px;
 }
 
 .card-panel {

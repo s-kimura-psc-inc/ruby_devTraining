@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="section">
+    <h4>タスク一覧</h4>
+  </div>
+
+<table class="table table-bordered fixed-form" >
+  <thead>
+  <tr>
+    <th>ラベル</th>
+    <th>タスク名</th>
+    <th>タスク</th>
+    <th>期限</th>
+    <th>ｽﾃｰﾀｽ</th>
+    <th>優先度</th>
+    <th>担当ユーザID</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |task| %>
+      <tr style="height:48px;">
+        <td style="vertical-align: middle"><%= task["label_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["task_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["task"] %></td>
+        <td style="vertical-align: middle"><%= task["deadline"] %></td>
+        <td style="vertical-align: middle"><%= task["status_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["priority_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["personnel"] %></td>
+      </tr>
+  <% end %>
+  <tbody>
+</table>
+
+<div class="footer-button">
+  <%= link_to "戻る", users_path, class:"btn btn-default", style:"width:150px;display:block;margin:auto" %>
+</div>
+
+</div>

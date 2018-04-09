@@ -63,14 +63,14 @@ class User < ApplicationRecord
   #
   # @return [Boolean] データエントリーの場合は`true`
   def general?
-    authority_level == '1'
+    authority_level == Constants::AUTHORITY_LEVEL_GENERAL[:value]
   end
 
   # ユーザの権限レベルが「管理者」かどうかを判定
   #
   # @return [Boolean] 管理者の場合は`true`
   def admin?
-    authority_level == '2'
+    authority_level == Constants::AUTHORITY_LEVEL_ADMIN[:value]
   end
 
   # 指定したユーザのIDが自身のインスタンスのIDと同じかどうかを判定します。

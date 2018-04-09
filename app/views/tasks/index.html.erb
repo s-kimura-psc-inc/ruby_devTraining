@@ -9,12 +9,9 @@
     <% end %>
   </div>
 
-<div class="row fixed-list-header">
-  <a href="<%= new_task_path %>" class="waves-effect waves-light btn right edit" tabindex="-1">新規登録</a>
-</div>
-
+    <a href="<%= new_task_path %>" class="waves-effect waves-light btn right edit" tabindex="-1">新規登録</a>
 <%= form_tag tasks_path, class: 'fixed-form', :method => 'get' do %>
-  <p>
+  
     <table class="search">
       <tr>
           <td class="label-nm">タスク名</td>
@@ -22,15 +19,15 @@
       </tr>
       <tr>
           <td class="label-nm">ステータス</td>
-          <td class="status"><%= select_tag :status_cd, options_for_select(@status_select_options), :selected => params[:status_cd], :include_blank => true, class: 'browser-default status' %></td>
+          <td class="status"><%= select_tag :status_cd, options_for_select(@status_select_options, params[:status_cd]), :include_blank => true, class: 'browser-default status' %></td>
       </tr>
       <tr>
-          <td colspan="2"><%= submit_tag "検索", :name => nil %></td>
+          <td colspan="2"><%= submit_tag "検索", :name => nil, :class => "btn waves-effect waves-light" %></td>
       </tr>
-  </p>
+    </table>
 <% end %>
 
-<table class="table table-bordered">
+<table class="table table-bordered fixed-form" >
   <thead>
   <tr>
     <th>ラベル</th>
@@ -39,7 +36,7 @@
     <th><%= sortable "期限", params[:status_cd], params[:task_nm] %></th>
     <th>ｽﾃｰﾀｽ</th>
     <th><%= sortable "優先度", params[:status_cd], params[:task_nm] %></th>
-    <th>担当者</th>
+    <th>担当ユーザID</th>
     <th>編集</th>
   </tr>
   </thead>

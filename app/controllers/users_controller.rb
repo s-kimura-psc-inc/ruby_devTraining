@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   # メッセージ
   MESSAGES = {
     create_notice:  'ユーザを登録しました',
-    update_notice:  'パスワードを更新しました',
+    update_notice:  'ユーザ情報を更新しました',
     destroy_notice: 'ユーザを削除しました',
     destroy_alert:  'ユーザ削除に失敗しました',
     task_destroy_alert: '削除対象ユーザが作成したタスクの削除に失敗しました'
@@ -10,27 +10,20 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: :destroy
   before_action :set_locale_default, expect: :update
-  before_action :set_locale_en, only: :update
 
-  # ユーザ一覧画面を表示します。
+  # ユーザ一覧画面を表示する。
   def index
     @users = User.user_records();
     
   end
 
-  # ユーザ新規登録画面を表示します。
+  # ユーザ新規登録画面を表示する。
   def new
     @user = User.new
     authorize @user
   end
 
-  # パスワード変更画面を表示します。
-#  def edit
-#    @user = current_user
-#    authorize @user
-#  end
-
-  # ユーザを登録します。
+  # ユーザを登録する。
   def create
     @user = User.new(new_user_params)
     authorize @user
@@ -45,11 +38,44 @@ class UsersController < ApplicationController
     end
   end
 
-  # ユーザを削除します。
-  def destroy
-    
+  #ユーザ更新画面を表示する
+  def edit
+    #idでTasksテーブルを取得
     @user = User.find(params[:id])
     
+  end
+
+  #ユーザを更新する
+  def update
+    #idでTasksテーブルを取得
+    @user = User.find(params[:id])
+   
+    @user.update(params.require(:user).permit(:user_nm, :authority_level))
+   
+    #担当者などにログインユーザIDを設定する
+    @user.updated_by = current_user.login
+    @user.save
+    
+    if @user.save
+      redirect_to users_path, notice: MESSAGES[:update_notice]
+    else
+      render :edit
+    end
+  end
+
+  #ユーザから遷移したタスク一覧情報を取得する。
+  def show
+    
+    print '☆☆☆'
+    print params[:login]
+    
+    #選択したユーザのタスク一覧情報を取得
+    @tasks = Task.user_task_lisk(params[:login])
+  end
+
+  # ユーザとユーザの作成したタスクを削除する。
+  def destroy
+    @user = User.find(params[:id])
     @user.destroy_with_task!(params[:login])
     
     flash[:msg] =  MESSAGES[:destroy_notice]
@@ -63,22 +89,16 @@ class UsersController < ApplicationController
 
   private
 
-  # 指定されたIDのユーザ情報を`@user`インスタンスにセットします。
+  # 指定されたIDのユーザ情報を`@user`インスタンスにセットする。
   def set_user
     @user = User.find(params[:id])
   end
 
-  # 受信したパラメータから許可されたパラメータのみに絞り込みます（ユーザ新規登録用）。
+  # 受信したパラメータから許可されたパラメータのみに絞り込む。
   #
   # @return [ActionController::Parameters] 許可されたパラメータ
   def new_user_params
     params.require(:user).permit(%i[login password password_confirmation user_nm authority_level])
   end
 
-  # 受信したパラメータから許可されたパラメータのみに絞り込みます（ユーザ更新用）。
-  #
-  # @return [ActionController::Parameters] 許可されたパラメータ
-#  def edit_user_params
-#    params.require(:user).permit(%i[old_password password password_confirmation])
-#  end
 end
