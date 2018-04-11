@@ -4,10 +4,10 @@ class Task < ApplicationRecord
   validates :task_nm, presence: true, length: { maximum: 20 }
   validates :task, length: { maximum: 100 }
   
-  # タスク一覧情報を取得する
+  # ユーザ管理に表示するタスク一覧用に情報を取得する
   #
   # @param user_id [String] ユーザID
-  def self.user_task_lisk(login)
+  def self.user_task_list(login)
       sql = <<~SQL
       SELECT
         tti.id,

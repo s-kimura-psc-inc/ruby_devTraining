@@ -14,6 +14,10 @@
   
     <table class="search">
       <tr>
+          <td class="label-nm">ラベル</td>
+          <td class="status"><%= select_tag :label_cd, options_for_select(@label_select_options, params[:label_cd]), :include_blank => true, class: 'browser-default status' %></td>
+      </tr>
+      <tr>
           <td class="label-nm">タスク名</td>
           <td class="task_nm"><%= text_field_tag :task_nm, params[:task_nm] %></td>
       </tr>
@@ -50,14 +54,14 @@
         <td style="vertical-align: middle"><%= task["status_nm"] %></td>
         <td style="vertical-align: middle"><%= task["priority_nm"] %></td>
         <td style="vertical-align: middle"><%= task["personnel"] %></td>
-        <td class="action">
+        <td class="action" style="vertical-align: middle">
           <%= link_to '詳細', task_path(task["id"]) %>
           <%= link_to '更新', edit_task_path(task["id"]) %>
           <%= link_to '削除', task_path(task["id"]), method:"delete", 'data-confirm': '削除します。よろしいですか？' %>
         </td>
       </tr>
   <% end %>
-  <tbody>
+  </tbody>
 </table>
 <%= paginate @tasks %>
 </div>

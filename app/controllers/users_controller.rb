@@ -65,12 +65,8 @@ class UsersController < ApplicationController
 
   #ユーザから遷移したタスク一覧情報を取得する。
   def show
-    
-    print '☆☆☆'
-    print params[:login]
-    
     #選択したユーザのタスク一覧情報を取得
-    @tasks = Task.user_task_lisk(params[:login])
+    @tasks = Task.user_task_list(params[:login])
   end
 
   # ユーザとユーザの作成したタスクを削除する。

@@ -23,6 +23,7 @@
             <li class="tab">
               <li class="tab"><%= link_to 'タスク管理', root_path, { target: '_self' }.merge(menu_item_class('tasks'))  %></li>
               <% if current_user.admin? %>
+                <li class="tab"><%= link_to 'ラベル管理', labels_path, { target: '_self' }.merge(menu_item_class('labels', except: ['edit', 'update']))  %></li>
                 <li class="tab"><%= link_to 'ユーザ管理', users_path, { target: '_self' }.merge(menu_item_class('users', except: ['edit', 'update']))  %></li>
               <% end %>
             </li>

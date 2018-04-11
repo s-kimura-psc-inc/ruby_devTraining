@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError do
     redirect_to root_url
   end
-
+  
   private
 
   # ログイン中のセッションを取得します。

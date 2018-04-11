@@ -7,8 +7,9 @@ Rails.application.routes.draw do
 
   resource :user_session, only: :create
   resources :tasks
-#  resources :labels, except: :show, update
+  resources :labels
   scope :admin do
     resources :users
   end
+
 end

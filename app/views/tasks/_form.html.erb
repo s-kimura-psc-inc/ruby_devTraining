@@ -26,7 +26,7 @@
       <table>
         <tr>
           <th class="label-nm"><%= f.label :label_cd, 'ラベル' %></th>
-          <td><%= select_tag 'label_cd', options_for_select(@label_select_options), :include_blank => true %></td>
+          <td><%= f.select :label_cd, options_for_select(@label_select_options, @task.label_cd), {include_blank: true}, class: 'browser-default'  %></td>
           </td>
         </tr>
         <tr>

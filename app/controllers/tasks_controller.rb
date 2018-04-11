@@ -28,6 +28,15 @@ class TasksController < ApplicationController
       where_conditions = "tbl_task_infs.personnel = '" + current_user.login + "'"
     end
     
+    # ラベル検索があり、ラベルコードに数値が設定されている場合
+    if params[:label_cd].present? && params[:label_cd] =~ /^[0-9]+$/
+      if where_conditions == ''
+        where_conditions = "tbl_task_infs.label_cd = " + params[:label_cd]
+      else
+        where_conditions = where_conditions + " and tbl_task_infs.label_cd = " + params[:label_cd]
+      end
+    end
+    
     # ステータス検索があり、ステータスコードに数値が設定されている場合
     if params[:status_cd].present? && params[:status_cd] =~ /^[0-9]+$/
       if where_conditions == ''
@@ -68,6 +77,8 @@ class TasksController < ApplicationController
                  .order(sort)
                  .page(params[:page]).per(10)
     
+    # ラベル情報取得
+    set_label_select_options
     # ステータス情報取得
     set_status_select_options
   end
@@ -124,7 +135,7 @@ class TasksController < ApplicationController
     #idでTasksテーブルを取得
     @task = Task.find(params[:id])
     
-    @task.update(params.require(:task).permit(:task_nm, :task, :deadline, :status_cd, :priority_cd))
+    @task.update(params.require(:task).permit(:task_nm, :task, :deadline, :status_cd, :priority_cd, :label_cd))
    
     #担当者などにログインユーザIDを設定する
     @task.personnel = current_user.login
