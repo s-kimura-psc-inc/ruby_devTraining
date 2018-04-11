@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="section">
+    <h4>ユーザ更新</h4>
+  </div>
+
+  <div id="flash-error">
+    <% flash.each do |name, message| %>
+      <p class="card <%= name %>"><%= message %></p>
+    <% end %>
+  </div>
+
+  <%= form_for(@user, html: { class: 'fixed-form' }) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="validation-errors" class="card">
+        <div id="validation-error-title"><%= @user.errors.count %> 件のエラーが発生しました</div>
+        <div id="validation-error-content">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="card-panel">
+        <table>
+          <tr>
+            <th><%= f.label :login, 'ユーザID' %></th>
+            <td><%= @user.login %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :user_nm, 'ユーザ名' %></th>
+            <td><%= f.text_field :user_nm, 'data-length': 50, maxlength: 50 %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :authority_level, '権限' %><span class="required">（必須）</span></th>
+            <td>
+              <span class="auth-level-radio-button">
+                <%= f.radio_button :authority_level, Constants::AUTHORITY_LEVEL_GENERAL[:value] %>
+                <%= f.label :authority_level, Constants::AUTHORITY_LEVEL_GENERAL[:name], value: Constants::AUTHORITY_LEVEL_GENERAL[:value] %>
+              </span>
+              <span class="auth-level-radio-button">
+                <%= f.radio_button :authority_level, Constants::AUTHORITY_LEVEL_ADMIN[:value] %>
+                <%= f.label :authority_level, Constants::AUTHORITY_LEVEL_ADMIN[:name], value: Constants::AUTHORITY_LEVEL_ADMIN[:value] %>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <div class="footer-button">
+          <button type="submit" name="action" class="btn waves-effect waves-light" tabindex="-1">登録</button>
+        </div>
+      </div>
+      <div class="footer-button">
+        <%= link_to "戻る", users_path, class:"btn btn-default", style:"width:150px;display:block;margin:auto" %>
+      </div>
+    </div>
+  <% end %>
+</div>

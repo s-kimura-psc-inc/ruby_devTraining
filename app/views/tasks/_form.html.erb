@@ -1,0 +1,74 @@
+<script type="text/javascript">
+  $(function () {
+      $('#datetimepickerDeadline').datetimepicker({
+          locale: 'ja',
+          viewMode: 'days',
+          format: 'YYYY/MM/DD'
+      });
+  });
+</script>
+
+<%= form_for @task do |f| %>
+
+  <% if @task.errors.any? %>
+    <div id="validation-error-title"><font color='red'><%= @task.errors.count %> 件のエラーが発生しました</font></div>
+    <div id="validation-error-content">
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><font color='red'><%= message %></font></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="input-form">
+    <div class="card-panel">
+      <table>
+        <tr>
+          <th class="label-nm"><%= f.label :label_cd, 'ラベル' %></th>
+          <td><%= f.select :label_cd, options_for_select(@label_select_options, @task.label_cd), {include_blank: true}, class: 'browser-default'  %></td>
+          </td>
+        </tr>
+        <tr>
+          <th class="label-nm"><%= f.label :task_nm, 'タスク名' %></th>
+          <td class="val">
+            <%= f.text_field :task_nm, 'data-length': 20, maxlength: 20 %>
+            <br><span class="caution">20文字以下を入力</span>
+          </td>
+        </tr>
+        <tr>
+          <th class="label-nm"><%= f.label :task, 'タスク' %></th>
+          <td class="val">
+            <%= f.text_field :task, 'data-length': 100, maxlength: 100 %>
+            <br><span class="caution">100文字以下を入力</span>
+          </td>
+        </tr>
+        <tr>
+          <th><%= f.label :deadline, '期限' %></th>
+          <td>
+              <div class='input-group date' id='datetimepickerDeadline'>
+                <%= f.text_field :deadline, :class => 'form-control' %>
+                <span class="input-group-addon"></span>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <th class="label-nm"><%= f.label :status_cd, 'ステータス' %></th>
+          <td><%= f.select :status_cd, options_for_select(@status_select_options, @task.status_cd) , {include_blank: true}, class: 'browser-default' %></td>
+        </tr>
+        <tr>
+          <th class="label-nm"><%= f.label :priority_cd, '優先度' %></th>
+          <td><%= f.select :priority_cd, options_for_select(@priority_select_options, @task.priority_cd), {include_blank: true}, class: 'browser-default' %></td>
+        </tr>
+      </table>
+
+      <div class="footer-button">
+        <button type="submit" name="action" class="btn waves-effect waves-light" tabindex="-1">登録</button>
+      </div>
+    </div>
+          
+    <div class="footer-button">
+      <%= link_to "戻る", tasks_path, class:"btn btn-default", style:"width:150px;display:block;margin:auto" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>タスク管理システム - Ruby教育カリキュラム -</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <div class="nav-wrapper">
+          <%= link_to 'タスク管理システム - Ruby教育カリキュラム -', root_path, class: 'system-title' %>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div id="flash-error">
+        <% flash.each do |name, message| %>
+          <p class="card <%= name %>"><%= message %></p>
+        <% end %>
+      </div>
+
+      <div class="row">
+        <%= form_for(@user_session, url: user_session_path, html: { class: 'fixed-login-form' }) do |f| %>
+          <div id="login-card" class="card">
+            <div class="card-content">
+              <div class="row center">
+                <h4>ログイン</h4>
+              </div>
+              <div class="input-field">
+                <%= f.label :login, 'ID', class: 'active' %>
+                <%= f.text_field :login, placeholder: '' %>
+              </div>
+              <div class="input-field">
+                <%= f.label :password, 'PASSWORD', class: 'active' %>
+                <%= f.password_field :password, placeholder: '' %>
+              </div>
+            </div>
+
+            <div class="card-action">
+              <div class="center">
+                <button type="submit" name="action" class="btn waves-effect waves-light" tabindex="-1">ログイン</button>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-copyright">Ruby教育カリキュラム</div>
+    </footer>
+  </body>
+</html>

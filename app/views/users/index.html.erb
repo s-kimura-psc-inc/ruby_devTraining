@@ -1,0 +1,62 @@
+<div class="section">
+  <h4>ユーザ一覧</h4>
+</div>
+
+<div id="flash-error">
+  <% flash.each do |name, message| %>
+    <p class="card <%= name %>"><%= message %></p>
+  <% end %>
+</div>
+
+<div class="fixed-list">
+  <div class="row fixed-list-header">
+    <a href="<%= new_user_path %>" class="waves-effect waves-light btn right edit" tabindex="-1">新規登録</a>
+  </div>
+
+  <div class="card-panel">
+    <table class="bordered">
+      <thead>
+        <tr>
+          <th>ユーザID</th>
+          <th>ユーザ名</th>
+          <th>権限</th>
+          <th>タスク登録件数</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user["login"] %></td>
+            <td><%= user["user_nm"] %></td>
+            <td>
+              <% case user["authority_level"] %>
+                <% when Constants::AUTHORITY_LEVEL_GENERAL[:value] %>
+                  <%= Constants::AUTHORITY_LEVEL_GENERAL[:name] %>
+                <% when Constants::AUTHORITY_LEVEL_ADMIN[:value] %>
+                  <%= Constants::AUTHORITY_LEVEL_ADMIN[:name] %>
+              <% end %>
+            </td>
+            <td>
+              <% if user["task_cnt"].present? %>
+                <%= link_to user["task_cnt"] ,user_path(user["id"], login: user["login"]) %>
+              <% end %>
+            </td>
+            <td class="action">
+              <% unless current_user.id == user["id"] %>
+                <%= link_to '更新', edit_user_path(user["id"]) %>
+              <% end %>
+            </td>
+            <td class="action">
+              <% unless current_user.id == user["id"] %>
+                <%= link_to '削除', user_path(user["id"], login: user["login"]), 'data-method': 'delete', 'data-confirm': '削除します。よろしいですか？', id: 'delete-link' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

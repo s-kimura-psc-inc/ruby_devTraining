@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="section">
+    <h4>タスク一覧</h4>
+  </div>
+
+  <div id="flash-error">
+    <% flash.each do |name, message| %>
+      <p class="card <%= name %>"><%= message %></p>
+    <% end %>
+  </div>
+
+    <a href="<%= new_task_path %>" class="waves-effect waves-light btn right edit" tabindex="-1">新規登録</a>
+<%= form_tag tasks_path, class: 'fixed-form', :method => 'get' do %>
+  
+    <table class="search">
+      <tr>
+          <td class="label-nm">ラベル</td>
+          <td class="status"><%= select_tag :label_cd, options_for_select(@label_select_options, params[:label_cd]), :include_blank => true, class: 'browser-default status' %></td>
+      </tr>
+      <tr>
+          <td class="label-nm">タスク名</td>
+          <td class="task_nm"><%= text_field_tag :task_nm, params[:task_nm] %></td>
+      </tr>
+      <tr>
+          <td class="label-nm">ステータス</td>
+          <td class="status"><%= select_tag :status_cd, options_for_select(@status_select_options, params[:status_cd]), :include_blank => true, class: 'browser-default status' %></td>
+      </tr>
+      <tr>
+          <td colspan="2"><%= submit_tag "検索", :name => nil, :class => "btn waves-effect waves-light" %></td>
+      </tr>
+    </table>
+<% end %>
+
+<table class="table table-bordered fixed-form" >
+  <thead>
+  <tr>
+    <th>ラベル</th>
+    <th>タスク名</th>
+    <th>タスク</th>
+    <th><%= sortable "期限", params[:status_cd], params[:task_nm] %></th>
+    <th>ｽﾃｰﾀｽ</th>
+    <th><%= sortable "優先度", params[:status_cd], params[:task_nm] %></th>
+    <th>担当ユーザID</th>
+    <th>編集</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |task| %>
+      <tr style="height:48px;">
+        <td style="vertical-align: middle"><%= task["label_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["task_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["task"] %></td>
+        <td style="vertical-align: middle"><%= task["deadline"] %></td>
+        <td style="vertical-align: middle"><%= task["status_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["priority_nm"] %></td>
+        <td style="vertical-align: middle"><%= task["personnel"] %></td>
+        <td class="action" style="vertical-align: middle">
+          <%= link_to '詳細', task_path(task["id"]) %>
+          <%= link_to '更新', edit_task_path(task["id"]) %>
+          <%= link_to '削除', task_path(task["id"]), method:"delete", 'data-confirm': '削除します。よろしいですか？' %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= paginate @tasks %>
+</div>
