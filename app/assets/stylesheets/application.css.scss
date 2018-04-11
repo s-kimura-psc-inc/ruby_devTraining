@@ -200,32 +200,35 @@ input:focus {
   width: 150px;
 }
 
-.input-form table {
+.input-form table,
+.label-input-form table {
   width: 100%;
 }
 
 .input-form th.label-nm {
   color: inherit;
   font-size: 14px;
-  width: 150px;
+  width: 20%;
 }
 
-.input-form td {
+.input-form td,
+.label-input-form td {
   height: 1rem;
   padding-bottom: 5px;
-  width: 150px;
+  width: 80%;
 }
 
-.input-form td.val {
-  height: 1rem;
-  padding-bottom: 5px;
-  width: 500px;
+.input-form div.deadline-wht {
+  width: 200px;
 }
 
-.input-form td.deadline {
-  height: 1rem;
-  padding-bottom: 5px;
+.input-form select.select-wdt,
+.label-input-form select.select-wdt {
   width: 100px;
+}
+
+.input-form select.select-label_wdt {
+  width: 250px;
 }
 
 .card-panel {
@@ -235,4 +238,20 @@ input:focus {
 
 #delete-link {
   @extend .red-text;
+}
+
+.label-input-form table {
+  width: 100%;
+}
+
+.label-input-form th.label-nm {
+  color: inherit;
+  font-size: 14px;
+  width: 20%;
+}
+
+.label-input-form td {
+  height: 1rem;
+  padding-bottom: 5px;
+  width: 80%;
 }
