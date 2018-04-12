@@ -9,11 +9,13 @@ class LabelsController < ApplicationController
 
   # ラベル一覧画面を表示する。
   def index
+    authorize Label.new
     @labels = Label.label_list;
   end
 
   # ラベル新規登録画面を表示する。
   def new
+    authorize Label.new
     @label = Label.new
   end
 

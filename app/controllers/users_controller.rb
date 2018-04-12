@@ -13,6 +13,8 @@ class UsersController < ApplicationController
 
   # ユーザ一覧画面を表示する。
   def index
+    # 管理者ユーザかどうか判断
+    authorize User.new
     @users = User.user_records();
     
   end
