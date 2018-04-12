@@ -15,15 +15,11 @@
     <table class="search">
       <tr>
           <td class="label-nm">ラベル</td>
-          <td class="status"><%= select_tag :label_cd, options_for_select(@label_select_options, params[:label_cd]), :include_blank => true, class: 'browser-default status' %></td>
-      </tr>
-      <tr>
+          <td><%= select_tag :label_cd, options_for_select(@label_select_options, params[:label_cd]), :include_blank => true, class: 'browser-default labels' %></td>
           <td class="label-nm">タスク名</td>
-          <td class="task_nm"><%= text_field_tag :task_nm, params[:task_nm] %></td>
-      </tr>
-      <tr>
+          <td><%= text_field_tag :task_nm, params[:task_nm] %></td>
           <td class="label-nm">ステータス</td>
-          <td class="status"><%= select_tag :status_cd, options_for_select(@status_select_options, params[:status_cd]), :include_blank => true, class: 'browser-default status' %></td>
+          <td><%= select_tag :status_cd, options_for_select(@status_select_options, params[:status_cd]), :include_blank => true, class: 'browser-default status' %></td>
       </tr>
       <tr>
           <td colspan="2"><%= submit_tag "検索", :name => nil, :class => "btn waves-effect waves-light" %></td>
