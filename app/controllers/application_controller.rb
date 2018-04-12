@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   end
   
   private
+  
+  http_basic_authenticate_with :name => ENV['BASIC_AUTH_USERNAME'], :password => ENV['BASIC_AUTH_PASSWORD'] if Rails.env == "production"
 
   # ログイン中のセッションを取得します。
   def current_user_session
