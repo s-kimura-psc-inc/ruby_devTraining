@@ -26,5 +26,4 @@ test:
   password: postgres
 
 production:
-  <<: *default
-  database: task_management_production
+  url: <%= ENV['DATABASE_URL'] %>
