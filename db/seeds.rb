@@ -1,8 +1,3 @@
-# ユーザ
-ApplicationRecord.connection.execute("TRUNCATE #{User.table_name}")
-User.create(login: "user-1", password: 'password', password_confirmation: 'password', user_nm: 'ユーザー1', authority_level: 1, created_by: 'system', updated_by: 'system')
-User.create(login: "admin-1", password: 'password', password_confirmation: 'password', user_nm: 'システム管理者1', authority_level: 2, created_by: 'system', updated_by: 'system')
-
 # ステータスマスタ
 ApplicationRecord.connection.execute("TRUNCATE #{Status.table_name}")
 CSV.foreach(Rails.root.join('db/seed/mst_statuses.csv'), headers: true, skip_blanks: true) do |row|
